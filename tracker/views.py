@@ -20,6 +20,12 @@ class TaskUpdateView(generic.UpdateView):
     success_url = reverse_lazy("tracker:task-list")
 
 
+class TaskDeleteView(generic.DeleteView):
+    model = Task
+    fields = "__all__"
+    success_url = reverse_lazy("tracker:task-list")
+
+
 class TagListView(generic.ListView):
     model = Tag
 
