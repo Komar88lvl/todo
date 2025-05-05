@@ -12,9 +12,29 @@
       	<tr>
           <td>
             {{ task.content }}
+            {% if task.is_completed %}
+              <span style="color: green;"><b>Done</b></span>
+            {% else %}
+              <span style="color: red;"><b>Not Done</b></span>
+            {% endif %}
+            <p>Created {{ task.created_at }}</p>
+            <p>Tags:
+              {% for tag in task.tags.all %}
+                {{ tag.name }}
+              {% endfor %}
+              <a href="{% url 'tracker:task-update' pk=task.id %}">Update</a>
+              <a href="{% url 'tracker:task-delete' pk=task.id %}">Delete</a>
+            </p>
           </td>
           <td>
-            {{ task.created_at }}
+            {% if task.is_completed %}
+              <a href="{% url 'tracker:task-toggle-complete' pk=task.id %}" class="btn btn-secondary">
+                Undo
+              </a>
+            {% else %}
+              <a href="{% url 'tracker:task-toggle-complete' pk=task.id %}" class="btn btn-success">
+                Complete
+            {% endif %}
           </td>
         </tr>
       {% endfor %}
