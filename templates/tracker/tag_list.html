@@ -15,10 +15,10 @@
             {{ tag.name }}
           </td>
           <td>
-            {{ tag.name }}
+            <a href="{% url 'tracker:tag-update' pk=tag.id %}" class="btn btn-secondary">Update</a>
           </td>
           <td>
-            {{ tag.name }}
+            <a href="{% url 'tracker:tag-delete' pk=tag.id %}" class="btn btn-danger">Delete</a>
           </td>
         </tr>
       {% endfor %}
