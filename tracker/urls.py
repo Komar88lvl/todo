@@ -5,6 +5,7 @@ from tracker.views import (
     TaskCreateView,
     TagCreateView,
     TaskUpdateView,
+    TagUpdateView,
 )
 
 urlpatterns = [
@@ -15,6 +16,7 @@ urlpatterns = [
 
     path("tags/", TagListView.as_view(), name="tag-list"),
     path("tag_create/", TagCreateView.as_view(), name="tag-create"),
+    path("tag_update/<int:pk>/", TagUpdateView.as_view(), name="tag-update"),
 ]
 
 app_name = "tracker"
