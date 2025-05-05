@@ -1,1 +1,25 @@
-hello
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>TODO list<a class="btn btn-primary" style="float: right;" href="{% url 'tracker:task-create' %}">Add task</a></h1>
+  {% if task_list %}
+    <table class="table">
+      <tr>
+        <th>Task</th>
+        <th>Status</th>
+      </tr>
+      {% for task in task_list %}
+      	<tr>
+          <td>
+            {{ task.content }}
+          </td>
+          <td>
+            {{ task.created_at }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>There aren`t any tasks</p>
+  {% endif %}
+{% endblock %}
