@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>TODO list<a class="btn btn-primary" style="float: right;" href="{% url 'tracker:task-create' %}">Add task</a></h1>
+  {% if task_list %}
+    <table class="table">
+      <tr>
+        <th>Task</th>
+        <th>Status</th>
+      </tr>
+      {% for task in task_list %}
+      	<tr>
+          <td>
+            {{ task.content }}
+            {% if task.is_completed %}
+              <span style="color: green;"><b>Done</b></span>
+            {% else %}
+              <span style="color: red;"><b>Not Done</b></span>
+            {% endif %}
+            <p>Created {{ task.created_at }}</p>
+            <p>Tags:
+              {% for tag in task.tags.all %}
+                {{ tag.name }}
+              {% endfor %}
+              <a href="{% url 'tracker:task-update' pk=task.id %}">Update</a>
+              <a href="{% url 'tracker:task-delete' pk=task.id %}">Delete</a>
+            </p>
+          </td>
+          <td>
+            {% if task.is_completed %}
+              <a href="{% url 'tracker:task-toggle-complete' pk=task.id %}" class="btn btn-secondary">
+                Undo
+              </a>
+            {% else %}
+              <a href="{% url 'tracker:task-toggle-complete' pk=task.id %}" class="btn btn-success">
+                Complete
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>There aren`t any tasks</p>
+  {% endif %}
+{% endblock %}
